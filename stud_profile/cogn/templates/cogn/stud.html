@@ -1,0 +1,20 @@
+{% extends 'cogn/base.html' %}
+
+{% block title %}
+Когнитивный профиль
+{% endblock %}
+
+{% block content %}
+    <div class="list-group">
+        {% for student in data %}
+          <a href="" class="list-group-item list-group-item-action">{{ student.fio }}</a>
+        {% endfor %}
+        </div>
+{% endblock %}
+{% block content2 %}
+ <py-script>
+      from example import plot_cognitive_profile
+      pyscript.write('lucky', plot_cognitive_profile())
+ </py-script>
+{% endblock %}
+
