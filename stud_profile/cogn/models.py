@@ -38,7 +38,6 @@ class Faculties(models.Model):
 
 class Files(models.Model):
     fio = models.CharField(max_length=50, blank=True, null=True)
-
     name = models.TextField(blank=True, null=True)
     category = models.CharField(max_length=50, blank=True, null=True)
     owner = models.IntegerField(blank=True, null=True)
@@ -46,7 +45,7 @@ class Files(models.Model):
     type = models.TextField(blank=True, null=True)
     url = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    stud_id = models.IntegerField()
+    id = models.IntegerField(db_column='stud_id', primary_key=True)
 
     class Meta:
         managed = False
@@ -74,9 +73,22 @@ class Marks(models.Model):
     number_of_semester = models.IntegerField(db_column='NUMBER_OF_SEMESTER', blank=True, null=True)  # Field name made lowercase.
     mark = models.IntegerField(blank=True, null=True)
     coddis = models.CharField(db_column='CODDIS', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    stud_id = models.IntegerField()
+    id = models.IntegerField(db_column='stud_id', primary_key=True)
 
     class Meta:
         managed = False
         db_table = 'marks'
 
+
+class Student(models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=100)
+    metric1 = models.PositiveIntegerField()
+    metric2 = models.PositiveIntegerField()
+    metric3 = models.PositiveIntegerField()
+    metric4 = models.PositiveIntegerField()
+    metric5 = models.PositiveIntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'cogn_student'

@@ -1,13 +1,87 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'cogn/base.html' %}
 
-</body>
-</html>
+{% block title %}
+Когнитивный профиль
+{% endblock %}
+
+{% block content %}
+
+    <div class="row" align="left">
+        <div class="col-md-5">
+            <div class="h-100 p-5  border rounded-3 shadow">
+                <h3 class="text-secondary"><b>{{ data.fio }}</b></h3>
+                <hr class="horizontal dark mt-0">
+                   <div class="table">
+                       <table class="table">
+                           <tbody>
+                           <tr><td>Факультет:</td><td>{{ data.facultet}}</td></tr>
+                           <tr><td>Курс:</td><td>{{ data.course }}</td></tr>
+                           <tr><td>Группа:</td><td>{{ data.gruppa}}</td></tr>
+                           <tr><td>Форма обучения:</td><td>очная</td></tr>
+                           <tr><td>Специальность:</td><td>{{ data.spec_napravl }}</td></tr>
+                           <tr><td>Профиль:</td><td>Информационные технологии в образовании</td></tr>
+                           <tr><td>Email:</td><td>{{ data.email }}</td></tr>
+                           <tr><td>Телефон:</td><td>{{ data.tel }}</td></tr>
+                           <tr><td>Тема ВКР:</td><td></td></tr>
+                           <tr><td>Научный руководитель:</td><td></td></tr>
+                           </tbody>
+                       </table>
+                   </div>
+            </div>
+        </div>
+
+
+           <div class="col-md-7">
+                <div class="h-100 p-5  border rounded-3 shadow">
+                    <h3 class="text-secondary"><b>Когнитивная модель</b></h3>
+                    <hr class="horizontal dark mt-0">
+                               <div id="cognitive-graph">
+        {{ graph_html|safe }}
+    </div>
+                </div>
+       </div>
+</div>
+<br>
+<div class="h-100 p-5 border rounded-3 shadow">
+    <h3 class="text-secondary"><b>Траектория успеваемости по среднему баллу</b></h3>
+     <hr class="horizontal dark mt-0">
+    {{ graph_htm | safe }}
+  </div>
+
+</div>
+<br>
+<br>
+<div class="container">
+  <div class="card-header" align="center">
+      <h3 class="text-secondary"><b>Успеваемость</b></h4>
+  </div>
+    <br>
+  <div class="card-body">
+
+ <table class="table">
+                <thead>
+                <tr>
+
+                    <th scope="col">Дисциплина</th>
+                    <th scope="col">Оценка</th>
+                    <th scope="col">Семестр</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for marks in mark %}
+                <tr>
+                    <th scope="row">{{ marks.discipline_name }}</th>
+                    <td>{{ marks.mark_name }}</td>
+                    <td>{{ marks.number_of_semester }}</td>
+                    {% endfor %}
+                </tr>
+
+                </tbody>
+            </table>
+  </div>
+</div>
+
+
+
+{% endblock %}
+

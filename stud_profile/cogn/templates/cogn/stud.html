@@ -5,16 +5,40 @@
 {% endblock %}
 
 {% block content %}
-    <div class="list-group">
-        {% for student in data %}
-          <a href="" class="list-group-item list-group-item-action">{{ student.fio }}</a>
-        {% endfor %}
+
+         <div class="container">
+             <div class="alert" role="alert" align="center">
+                    <h3>Список студентов</h3>
+            </div>
+
+            <div class="list-group">
+              <table class="table table-hover">
+                <thead>
+                    <tr>
+                      <th scope="col">№</th>
+                      <th scope="col">ФИО</th>
+                      <th scope="col">Группа</th>
+                      <th scope="col">Факультет</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for student in data %}
+                    <tr>
+                        <th scope="row"><b>{{ forloop.counter }}</b></th>
+                        <td><a href="{% url 'profile' id=student.id %}" class="list-group-item list-group-item-action rounded-3 ">{{ student.fio }}</a></td>
+                        <td>{{ student.gruppa}}</td>
+                      <td>{{ student.facultet}}</td>
+
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+              </table>
+
+
+
+
         </div>
-{% endblock %}
-{% block content2 %}
- <py-script>
-      from example import plot_cognitive_profile
-      pyscript.write('lucky', plot_cognitive_profile())
- </py-script>
+    </div>
+    </div>
 {% endblock %}
 
