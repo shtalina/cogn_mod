@@ -2,11 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Students, Student, Marks, Faculties, Groups
 from io import BytesIO
-import matplotlib.pyplot as plt
-import plotly.express as px
+
 import plotly.graph_objects as go
-import numpy as np
-import mpld3
+
 
 
 def Stud(request):
@@ -65,11 +63,7 @@ def profile(request, id):
     # Преобразуйте график в HTML и передайте его в шаблон
     graph_htm = fig.to_html(full_html=False)
 
-
-
-
-
-
+    #Тут уже пентагон
     cognitive_data = {
         "Логическое мышление": student.metric1,
         "Математические навыки": student.metric2,
@@ -102,6 +96,8 @@ def profile(request, id):
             radialaxis=dict(
                 visible=True,
                 range=[0, max(values) + 10],
+                showline=False,  # Устанавливаем showline в False
+                showticklabels=False
             ),
         ),
         showlegend=False,
@@ -115,10 +111,44 @@ def profile(request, id):
     # Преобразуем фигуру в HTML
     graph_html = fig.to_html()
 
+    # А тут будет когнитивная моделька
+
+    values = [student.intro_extro, student.adapt, student.social, student.refl, student.motivation]
+    intro_extro_value = student.intro_extro
+    adapt_value = student.adapt
+    social_value = student.social
+    refl_value = student.refl
+    motivation_value = student.motivation
+
+    # Задайте имена шкал
+    scales = ['Стрессоустойчивость', 'Адаптивность', 'Уровень общительности', 'Способность к рефлексии', 'Самомотивация']
+
+    # Создайте бар-график для каждой шкалы
+    fig = go.Figure()
+    fig.add_trace(go.Bar(x=[intro_extro_value], y=[scales[0]], orientation='h', name=scales[0]))
+    fig.add_trace(go.Bar(x=[adapt_value], y=[scales[1]], orientation='h', name=scales[1]))
+    fig.add_trace(go.Bar(x=[social_value], y=[scales[2]], orientation='h', name=scales[2]))
+    fig.add_trace(go.Bar(x=[refl_value], y=[scales[3]], orientation='h', name=scales[3]))
+    fig.add_trace(go.Bar(x=[motivation_value], y=[scales[4]], orientation='h', name=scales[4]))
+
+    # Настройте внешний вид графика
+    fig.update_layout(
+        barmode='relative',
+        xaxis_title='Значение',
+        yaxis_title='Шкала',
+
+    )
+
+    # Преобразуйте график в HTML
+    graph_ht = fig.to_html(full_html=False)
+
     return render(request, 'cogn/profile.html', {
         'graph_html': graph_html,
         'data': data,
         'student': student,
         'mark': mark,
         'graph_htm': graph_htm,
+        'graph_ht': graph_ht,
     })
+
+

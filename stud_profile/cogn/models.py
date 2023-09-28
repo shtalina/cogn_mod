@@ -88,6 +88,11 @@ class Student(models.Model):
     metric3 = models.PositiveIntegerField()
     metric4 = models.PositiveIntegerField()
     metric5 = models.PositiveIntegerField()
+    intro_extro = models.PositiveIntegerField()
+    adapt = models.PositiveIntegerField()
+    social = models.PositiveIntegerField()
+    refl = models.PositiveIntegerField()
+    motivation = models.PositiveIntegerField()
 
     class Meta:
         managed = False
