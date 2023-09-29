@@ -72,7 +72,6 @@ def profile(request, id):
         "Пространственное мышление": student.metric5,
     }
 
-
     # Убедитесь, что у вас есть ровно 5 категорий и значений
     categories = list(cognitive_data.keys())
 
@@ -90,26 +89,37 @@ def profile(request, id):
         name='Cognitive Metrics'
     ))
 
+    # Добавляем значения на точки
+    for i, (category, value) in enumerate(zip(categories, values)):
+        fig.add_trace(go.Scatterpolar(
+            r=[value, value, value, value, value, value],  # Позиционируем значение на соответствующей категории
+            theta=[category, category, category, category, category, category],  # 6 точек вокруг категории
+            mode='markers+text',  # Включаем маркеры и текст
+            text=[f'{value }' + 'ㅤ'],  # Устанавливаем текст метки
+            textposition='top right' if i % 2 == 0 else 'top left',  # Располагаем текст в нижней части точки
+              # Устанавливаем размер маркера
+            name=category  # Устанавливаем имя категории
+        ))
+
     # Обновляем макет
     fig.update_layout(
         polar=dict(
             radialaxis=dict(
                 visible=True,
-                range=[0, max(values) + 10],
+                range=[0, max(values) + 15],
                 showline=False,  # Устанавливаем showline в False
                 showticklabels=False
             ),
         ),
         showlegend=False,
-        #title='Когнитивная модель студента:',
-
+        # title='Когнитивная модель студента:',
 
         font=dict(size=12)
-
     )
 
     # Преобразуем фигуру в HTML
     graph_html = fig.to_html()
+
 
     # А тут будет когнитивная моделька
 
