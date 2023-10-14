@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Students, Student, Marks, Faculties, Groups
+from .models import Students, Student, Marks, Faculties, Groups, Comp
 from io import BytesIO
 
 import plotly.graph_objects as go
@@ -25,6 +25,7 @@ def profile(request, id):
     data = Students.objects.get(pk=id)
     student = Student.objects.get(pk=id)
     mark = Marks.objects.filter(id=id)
+    comp = Comp.objects.all()
     # Получите все записи экзаменов для данного студента
 
     # Создайте списки для хранения данных о семестрах и средних баллах
@@ -86,7 +87,10 @@ def profile(request, id):
         r=values + values[:1],
         theta=categories + categories[:1],
         fill='toself',
-        name='Cognitive Metrics'
+        name='Cognitive Metrics',
+        line=dict(color='rgb(118, 138, 204)'),
+
+
     ))
 
     # Добавляем значения на точки
@@ -98,7 +102,8 @@ def profile(request, id):
             text=[f'{value }' + 'ㅤ'],  # Устанавливаем текст метки
             textposition='top right' if i % 2 == 0 else 'top left',  # Располагаем текст в нижней части точки
               # Устанавливаем размер маркера
-            name=category  # Устанавливаем имя категории
+            name=category,  # Устанавливаем имя категории
+            marker = dict(color='rgb(64, 83, 145)')
         ))
 
     # Обновляем макет
@@ -135,11 +140,11 @@ def profile(request, id):
 
     # Создайте бар-график для каждой шкалы
     fig = go.Figure()
-    fig.add_trace(go.Bar(x=[intro_extro_value], y=[scales[0]], orientation='h', name=scales[0]))
-    fig.add_trace(go.Bar(x=[adapt_value], y=[scales[1]], orientation='h', name=scales[1]))
-    fig.add_trace(go.Bar(x=[social_value], y=[scales[2]], orientation='h', name=scales[2]))
-    fig.add_trace(go.Bar(x=[refl_value], y=[scales[3]], orientation='h', name=scales[3]))
-    fig.add_trace(go.Bar(x=[motivation_value], y=[scales[4]], orientation='h', name=scales[4]))
+    fig.add_trace(go.Bar(x=[intro_extro_value], y=[scales[0]], orientation='h', name=scales[0],  marker = dict(color='rgb(108, 134, 217)')))
+    fig.add_trace(go.Bar(x=[adapt_value], y=[scales[1]], orientation='h', name=scales[1],  marker = dict(color='rgb(85, 110, 189)')))
+    fig.add_trace(go.Bar(x=[social_value], y=[scales[2]], orientation='h', name=scales[2],  marker = dict(color='rgb(79, 105, 189)')))
+    fig.add_trace(go.Bar(x=[refl_value], y=[scales[3]], orientation='h', name=scales[3],  marker = dict(color='rgb(104, 124, 189)')))
+    fig.add_trace(go.Bar(x=[motivation_value], y=[scales[4]], orientation='h', name=scales[4],  marker = dict(color='rgb(79, 98, 158)')))
 
     # Настройте внешний вид графика
     fig.update_layout(
@@ -159,6 +164,10 @@ def profile(request, id):
         'mark': mark,
         'graph_htm': graph_htm,
         'graph_ht': graph_ht,
+        'comp': comp,
     })
+
+def contacts(request):
+    return render(request, 'cogn/contacts.html')
 
 

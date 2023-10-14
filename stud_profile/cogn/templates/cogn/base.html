@@ -37,17 +37,20 @@
             <a class="nav-link" href="/">Список студентов</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Портфолио</a>
+            <a class="nav-link" href="https://portfolio.tspu.edu.ru/main">Портфолио</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">ЭИОС</a>
+            <a class="nav-link" href="https://eios.tspu.edu.ru/person/profile/">ЭИОС</a>
           </li>
 
            <li class="nav-item">
-            <a class="nav-link" href="#">Расписание</a>
+            <a class="nav-link" href="https://timetable.tspu.edu.ru/">Расписание</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">ТГПУ</a>
+            <a class="nav-link" href="https://www.tspu.edu.ru/index.php">ТГПУ</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'contacts' %}">Контакты</a>
           </li>
 
         </ul>
@@ -61,7 +64,7 @@
 
    <main>
 
-    <div class="container-xl">
+        <div class="mx-5">
         <br><br>
                 {% block content %}{% endblock %}
         </div>

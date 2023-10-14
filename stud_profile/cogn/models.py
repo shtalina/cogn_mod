@@ -97,3 +97,15 @@ class Student(models.Model):
     class Meta:
         managed = False
         db_table = 'cogn_student'
+
+class Comp(models.Model):
+    id = models.IntegerField(primary_key=True)
+    kod_plana = models.PositiveIntegerField()
+    stud_plan = models.PositiveIntegerField()
+    comp_name = models.PositiveIntegerField()
+    shifr_name = models.PositiveIntegerField()
+    order = models.PositiveIntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'comp'

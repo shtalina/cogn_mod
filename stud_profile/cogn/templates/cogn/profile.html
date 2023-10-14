@@ -40,12 +40,37 @@
        </div>
 </div>
 <br>
+    <div class="row" align="left">
+        <div class="col-md-5">
+             <div class="h-100 p-5  border rounded-3 shadow">
+                <h3 class="text-secondary"><b>Компетенции</b></h3>
+                     <ul class="nav nav-tabs card-header-tabs">
+                          <li class="nav-item">
+                            <a class="nav-link active" aria-current="true" href="#">ОПК</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link active" href="#">УК</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link active" aria-disabled="true">ПК</a>
+                          </li>
+                     </ul>
 
+                <hr class="horizontal dark mt-0">
+                 <ul class="list-group list-group-flush">
+                     {% for compt in comp %}
+                      <li class="list-group-item">{{ compt.comp_name}}</li>
+                      {% endfor %}
+                 </ul>
+        </div>
+        </div>
+        <div class="col-md-7">
 <div class="h-100 p-5 border rounded-3 shadow">
     <h3 class="text-secondary"><b>Когнитивные параметры</b></h3>
      <hr class="horizontal dark mt-0">
     {{ graph_ht | safe }}
   </div>
+        </div>
 <br>
 
 <div class="h-100 p-5 border rounded-3 shadow">
@@ -86,6 +111,9 @@
             </table>
   </div>
 </div>
+<script>
+
+</script>
 
 
 
